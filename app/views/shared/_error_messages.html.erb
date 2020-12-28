@@ -1,0 +1,12 @@
+  <%# render=>> boards/_form %>
+  <%# render=>> comments/_form %>
+  <%# render=>> user/_form %>
+  <% if flash[:error_messages] %>
+  <div class="alert alert-danger">
+    <ul>
+      <%= flash[:error_messages].each do |msg| %>
+      <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>

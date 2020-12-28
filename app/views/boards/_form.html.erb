@@ -1,0 +1,35 @@
+  <%# render=>> edit, new %>
+  <%= render 'shared/error_messages' %>
+  <%= form_with model: board do |f| %>
+  <div class="form-group">
+    <%= f.label :name, '名前' %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :title, 'タイトル' %>
+    <%= f.text_field :title, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :body, '本文' %>
+    <%= f.text_area :body, placeholder: "自由に書き込んでみましょう!", class: 'form-control', rows: 10 %>
+  </div>
+  
+  <div class="form-group">
+    <span>タグ</span>
+    <%# 多対多の場合第1引数で相手のモデル名_idsで関連付け %>
+    <%# 第２引数：チェックボックスとして表示するオブジェクトのコレクション %>
+    <%# 第３引数：各チェックボックスの値にtagオブジェクトのidプロパティを指定 %>
+    <%# 第4引数でtagオブジェクトのnameプロパティをラベル名としている %>
+    <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :name) do |tag| %>
+    <div class="form-check">
+      <%= tag.label class: 'form-check-label' do %>
+        <%= tag.check_box class: 'form-check-input' %>
+        <%# 第4引数のtag.nameが表示される %>
+        <%= tag.text %>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+
+  <%= f.submit '保存', class: 'btn btn-primary' %>
+  <% end %>
